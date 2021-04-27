@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,12 +21,17 @@ public class Controlador {
 	ServiceMascota serviceMascota;
 	@Autowired
 	ServicesVeterinario serviceVeterinario;
+	@Autowired
+	ServicesCita serviceCita; 
 //	@Autowired
-//	@Autowired
+	ServicesRecetaMedica serviceRecetaMedica;
 	//-------------------------------------------
 	//------Duenio-------------------------------
 	//-------------------------------------------
-	
+	@GetMapping("/")
+	public String registrarDuenio() {
+		return "registroDuenio";
+	}
 	@RequestMapping(value = "/duenio/crearDuenio", method = RequestMethod.GET)
 	public Duenio crearDuenio(@RequestParam(name = "id")int idDuenio,
 							@RequestParam(name = "nombre")String nombre,
@@ -113,5 +119,67 @@ public class Controlador {
 		return this.serviceVeterinario.eliminarVeterinario(idVeterinario);
 	}
 	
+	//-------------------------------------------
+	//------Cita---------------------------------
+	//-------------------------------------------
+		
+	@RequestMapping(value = "/cita/crearCita", method = RequestMethod.GET)
+	public Cita crearCita(@RequestParam(name = "id")int idCita,
+							@RequestParam(name = "propocitoDiagnostico")String propocitoDiagnostico,
+							@RequestParam(name = "valor")int valor,
+							@RequestParam(name = "fechaCita")LocalDate fechaCita,
+							@RequestParam(name = "idMascota")int idMascota,
+							@RequestParam(name = "idVeterinario")int idVeterinario) {
+		Cita cita = new Cita(idCita, propocitoDiagnostico, fechaCita, valor, idMascota, idVeterinario);
+		return cita;
+			
+	}
+		
+	@RequestMapping(value = "/cita/listaCita", method = RequestMethod.GET)
+	public List<Cita> listaCita(){
+		return this.serviceCita.obtenerTodasCitas();
+	}
+		
+	@RequestMapping(value = "/cita/buscarCita", method = RequestMethod.GET)
+	public Cita buscarCita(@RequestParam(name = "id")int idCita){
+		return this.serviceCita.buscarCita(idCita);
+	}
+		
+	@RequestMapping(value = "/cita/eliminarCita", method = RequestMethod.GET)
+	public Cita eliminarCita(@RequestParam(name = "id")int idCita){
+		return this.serviceCita.eliminarCita(idCita);
+	}
+	
+	//-------------------------------------------
+	//------RecetaMedica---------------------------------
+	//-------------------------------------------
+		
+	@RequestMapping(value = "/recetaMedica/crearRecetaMedica", method = RequestMethod.GET)
+	public RecetaMedica crearRecetaMedica(@RequestParam(name = "id")int idRecetaMedica,
+							@RequestParam(name = "propocitoDiagnostico")String propocitoDiagnostico,
+							@RequestParam(name = "nombreMedicamento")String nombreMedicamento,
+							@RequestParam(name = "valor")int valor,
+							@RequestParam(name = "propositoDiagnostico")String propositoDiagnistico,
+							@RequestParam(name = "dosis")String dosis,
+							@RequestParam(name = "idCita")int idCita) {
+		RecetaMedica recetaMedica= new RecetaMedica(idRecetaMedica, nombreMedicamento, valor, dosis, idCita);
+		return recetaMedica;
+			
+	}
+		
+	@RequestMapping(value = "/recetaMedica/listaRecetaMedica", method = RequestMethod.GET)
+	public List<RecetaMedica> listaRecetaMedica(){
+		return this.serviceRecetaMedica.obtenerTodasRecetasMedicas();
+	}
+		
+	@RequestMapping(value = "/recetaMedica/buscarRecetaMedica", method = RequestMethod.GET)
+	public RecetaMedica buscarRecetaMedica(@RequestParam(name = "id")int idRecetaMedica){
+		return this.serviceRecetaMedica.buscarRecetaMedica(idRecetaMedica);
+	}
+		
+	@RequestMapping(value = "/recetaMedica/eliminarRecetaMedica", method = RequestMethod.GET)
+	public RecetaMedica eliminarRecetaMedica(@RequestParam(name = "id")int idRecetaMedica){
+		return this.serviceRecetaMedica.eliminarRecetaMedica(idRecetaMedica) ;
+	}
 	
 }
