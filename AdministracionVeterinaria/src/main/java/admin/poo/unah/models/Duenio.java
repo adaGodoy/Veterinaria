@@ -11,13 +11,15 @@ public class Duenio {
 	@Id
 	private int idDuenio;
 	private String nombre;
+	private String telefono;
 	private String direccion;
 	private String correoElectronico;
 	
 	public Duenio() {}
-	public Duenio(int idDuenio, String nombre, String direccion, String correoElectronico) {
+	public Duenio(int idDuenio, String nombre,String telefono, String direccion, String correoElectronico) {
 		this.idDuenio = idDuenio;
 		this.nombre = nombre;
+		this.telefono = telefono;
 		this.direccion = direccion;
 		this.correoElectronico = correoElectronico;
 	}
@@ -33,6 +35,12 @@ public class Duenio {
 	}
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
+	}
+	public String getTelefono() {
+		return telefono;
+	}
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
 	}
 	public String getDireccion() {
 		return direccion;

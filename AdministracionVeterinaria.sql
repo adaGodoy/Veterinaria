@@ -4,8 +4,8 @@ CREATE DATABASE AdministracionVeterinaria;
 
 USE AdministracionVeterinaria;
 
-CREATE TABLE IF NOT EXISTS Propietario(
-	idPropietario INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS Duenio(
+	idDuenio INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(45) NOT NULL,
     telefono VARCHAR(15) NOT NULL,
     direccion VARCHAR(60) NOT NULL,
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS Mascota(
     tipo VARCHAR(15) NOT NULL,
     fechaNacimiento DATE NOT NULL,
     idDuenio INT NOT NULL,
-    FOREIGN KEY(idPropietario) REFERENCES Propietario(idPropietario)
+    FOREIGN KEY(idDuenio) REFERENCES Duenio(idDuenio)
 );
 
 CREATE TABLE IF NOT EXISTS Veterinario(

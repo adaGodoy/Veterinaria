@@ -1,10 +1,8 @@
 package admin.poo.unah.services;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import admin.poo.unah.models.Mascota;
 import admin.poo.unah.repository.RepositoryMascota;
 
